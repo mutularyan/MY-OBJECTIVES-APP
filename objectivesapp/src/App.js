@@ -21,8 +21,8 @@ function App() {
           </div> 
 
           <div className='btn-area'>
-             <button>Objective</button>
-             <button>Completed</button>
+             <button className='secondary-button'>Objective</button>
+             <button className='secondary-button'>Completed</button>
           </div>
           <div className='objectives-list'>
               <div className='objectives-list-item'>

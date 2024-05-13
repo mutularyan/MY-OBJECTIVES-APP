@@ -54,10 +54,42 @@ margin-bottom: 10px;
 
 
 .objectives-input-item input:focus{
-  outline: none;
   outline: 2px solid #58e7e7;
 }
 
 .primary-button{
-  
+  background-color: #297575 ;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-top: 24px;
+  font-weight: bold;
+  width: 60px;
+  cursor: pointer;
+}
+
+.primary-button:hover{
+  transition: 300ms;
+  background-color: rgb(90, 201, 76);
+}
+
+
+.secondary-button{
+  background-color: #297575 ;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-top: 24px;
+  font-weight: bold;
+  width: 60px;
+  cursor: pointer;
+
 }
