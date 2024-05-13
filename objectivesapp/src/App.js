@@ -25,14 +25,26 @@ function App() {
           </div> 
 
           <div className='btn-area'>
-             <button className={`isCompleteScreen ${isCompleteScreen===false && 'active'}`} onClick={()=>setIsCompleteScreen(false)}>Objective</button>
-             <button className={`isCompleteScreen ${isCompleteScreen===true && 'active'}`}  onClick={()=>setIsCompleteScreen(true)}>Completed</button>
+             <button className={`secondary-button1 ${isCompleteScreen===false && 'active1'}`}
+               onClick={()=>setIsCompleteScreen(false)}>
+                Objective
+             </button>
+
+             <button className={`secondary-button2 ${isCompleteScreen===true && 'active2'}`}
+               onClick={()=>setIsCompleteScreen(true)}>
+                Completed
+             </button>
+                
           </div>
           <div className='objectives-list'>
+            
               <div className='objectives-list-item'>
+                <div>
                 <h3>Objective 1</h3>
                 <p>Description</p>
+                </div>
               </div>
+              
 
           </div>
         </div>
