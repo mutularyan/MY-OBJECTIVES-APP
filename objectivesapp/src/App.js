@@ -9,6 +9,8 @@ function App() {
   const [newObjective, setNewObjective] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [completedObjectives, setCompletedObjectives] = useState([]);
+  const [currentEdit,setCurrentEdit] = useState("");
+  const [currentEditedItem,setCurrentEditedItem] = useState("");
 
   const handleAddObjective = () => {
     let updatedObjectiveArr = [...allObjectives];
@@ -73,7 +75,11 @@ function App() {
     if (savedCompletedObjective) {
       setCompletedObjectives(savedCompletedObjective);
     }
-  }, [])
+  }, []);
+
+  const handleEdit = (ind,item)=>{
+    console.log(ind)
+  }
 
   return (
     <div className="App">
@@ -113,6 +119,10 @@ function App() {
         <div className='objectives-list'>
 
           {isCompleteScreen === false && allObjectives.map((item, index) => {
+            if (currentEdit===index){
+
+            }
+            
             return (
               <div className='objectives-list-item' key={index}>
 
