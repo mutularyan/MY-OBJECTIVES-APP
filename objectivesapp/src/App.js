@@ -23,11 +23,20 @@ function App() {
     localStorage.setItem('objectiveslist',JSON.stringify(updatedObjectiveArr))
   };
 
+   const handleDeleteObjective = (index)=>{
+     let reducedObjective = [...allObjectives]
+     reducedObjective.splice(index);
+
+     localStorage.setItem('objectiveslist', JSON.stringify(reducedObjective));
+     setObjectives(reducedObjective)
+
+   }
+
 
   useEffect(()=>{
     let savedObjective = JSON.parse(localStorage.getItem('objectiveslist'));
      if(savedObjective){
-     
+       setObjectives(savedObjective);
      }
   },[])
 
@@ -74,7 +83,7 @@ function App() {
                 </div>
                 
                 <div className='icon'>
-                <MdDeleteSweep className='delete-icon' title='Delete?' />
+                <MdDeleteSweep className='delete-icon' onClick={()=>handleDeleteObjective(index)} title='Delete?' />
                 <IoCheckmarkDoneSharp className='check-icon' title='Complete?'/>
                 </div>
                 
