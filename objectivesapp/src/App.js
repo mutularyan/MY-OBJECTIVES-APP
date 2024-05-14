@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { MdDeleteSweep } from "react-icons/md";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
@@ -8,19 +8,28 @@ import { IoCheckmarkDoneSharp } from "react-icons/io5";
 function App() {
   const [isCompleteScreen,setIsCompleteScreen] = useState(false);
   const [allObjectives,setObjectives] = useState ([]);
-  Const [newObjective,setNewObjective] = useState("");
+  const [newObjective,setNewObjective] = useState("");
   const [newDescription,setNewDescription] = useState("");
 
-  const handleAddObjective = ()=>{
-    let newObjectiveItem = {
-      objective:newObjective,
-      description:newDescription,
-    }
-  }
+  const handleAddObjective = () => {
+    let updatedObjectiveArr = [...allObjectives];
+    updatedObjectiveArr.push({
+      objective: newObjective,
+      description: newDescription,
+    });
+    setObjectives(updatedObjectiveArr);
+    setNewObjective("");
+    setNewDescription("");
+    localStorage.setItem('objectiveslist',JSON.stringify(updatedObjectiveArr))
+  };
 
-  let updatedObjectiveArr = [...allObjectives];
-  updatedObjectiveArr.push(newObjective);
-  setObjectives(updatedObjectiveArr);
+
+  useEffect(()=>{
+    let savedObjective = JSON.parse(localStorage.getItem('objectiveslist'));
+     if(savedObjective){
+     
+     }
+  },[])
 
   return (
     <div className="App">
@@ -55,31 +64,30 @@ function App() {
           </div>
           <div className='objectives-list'>
             
-           {allObjectives.map((item,index) => {
-              return 
-              <div className='objectives-list-item' key={index}>
+            {allObjectives.map ((item,index) => {
+              return ( 
+                <div className='objectives-list-item' key={index}>
                 
                 <div>
-                <h3>{item.title}</h3>
-                <p>{}</p>
+                <h3>{item.objective}</h3>
+                <p>{item.description}</p>
                 </div>
                 
                 <div className='icon'>
-                <MdDeleteSweep className='delete-icon' />
-                <IoCheckmarkDoneSharp className='check-icon'/>
+                <MdDeleteSweep className='delete-icon' title='Delete?' />
+                <IoCheckmarkDoneSharp className='check-icon' title='Complete?'/>
                 </div>
                 
-              </div>
-
-           }
-            )}
+              </div> 
+              )
+            })}
             
 
           </div>
         </div>
     </div>
   )
-}
+};
 
 
 export default App;
