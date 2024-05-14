@@ -41,7 +41,7 @@ function App() {
     let h = now.getHours();
     let m = now.getMinutes();
     let s = now.getSeconds();
-    let completedOn = dd + '-' + mm + '-' yyyy + 'at' + h + ':' + m + ':' + s;
+    let completedOn = dd + '-' + mm + '-' + yyyy + ' at ' + h + ':' + m + ':' + s;
 
     let filteredItem = {
       ...allObjectives[index],
@@ -106,6 +106,24 @@ function App() {
                 <div className='icon'>
                 <MdDeleteSweep className='delete-icon' onClick={()=>handleDeleteObjective(index)} title='Delete?' />
                 <IoCheckmarkDoneSharp className='check-icon' onClick={()=>handleCompleted(index)} title='Complete?'/>
+                </div>
+                
+              </div> 
+              )
+            })}
+
+             {isCompleteScreen===true && completedObjectives.map ((item,index) => {
+              return ( 
+                <div className='objectives-list-item' key={index}>
+                
+                <div>
+                <h3>{item.objective}</h3>
+                <p>{item.description}</p>
+                <p><em>Completed on: {item.completedOn}</em></p>
+                </div>
+                
+                <div className='icon'>
+                <MdDeleteSweep className='delete-icon' onClick={()=>handleDeleteObjective(index)} title='Delete?' />
                 </div>
                 
               </div> 
