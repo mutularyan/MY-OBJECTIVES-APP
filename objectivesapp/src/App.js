@@ -96,12 +96,13 @@ function App() {
     })
   }
 
-  const handleUpdateObjective = ()=>{
-      let newObjective = [...allObjectives];
-      newObjective[currentEdit] = currentEditedItem;
-      setObjectives(newObjective);
-      setCurrentEdit("");
-  }
+  const handleUpdateObjective = () => {
+    let newObjectives = [...allObjectives];
+    newObjectives[currentEdit] = currentEditedItem;
+    setObjectives(newObjectives);
+    setCurrentEdit("");
+  };
+  
 
   return (
     <div className="App">
