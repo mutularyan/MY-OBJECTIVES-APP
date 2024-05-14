@@ -10,6 +10,7 @@ function App() {
   const [allObjectives,setObjectives] = useState ([]);
   const [newObjective,setNewObjective] = useState("");
   const [newDescription,setNewDescription] = useState("");
+  const [completedObjectives,setIsCompleteObjectives] = useState([]);
 
   const handleAddObjective = () => {
     let updatedObjectiveArr = [...allObjectives];
@@ -30,6 +31,26 @@ function App() {
      localStorage.setItem('objectiveslist', JSON.stringify(reducedObjective));
      setObjectives(reducedObjective)
 
+   }
+
+   const handleCompleted = (index)=>{
+    let now = new Date();
+    let dd = now.getDate();
+    let mm = now.getMonth() + 1;
+    let yyyy = now.getFullYear();
+    let h = now.getHours();
+    let m = now.getMinutes();
+    let s = now.getSeconds();
+    let completedOn = dd + '-' + mm + '-' yyyy + 'at' + h + ':' + m + ':' + s;
+
+    let filteredItem = {
+      ...allObjectives[index],
+      completedOn:completedOn
+    }
+
+    let updatedCompletedArr = [...completedObjectives];
+    updatedCompletedArr.push(filteredItem);
+    setIsCompleteObjectives(updatedCompletedArr);
    }
 
 
@@ -73,7 +94,7 @@ function App() {
           </div>
           <div className='objectives-list'>
             
-            {allObjectives.map ((item,index) => {
+            {isCompleteScreen===false && allObjectives.map ((item,index) => {
               return ( 
                 <div className='objectives-list-item' key={index}>
                 
@@ -84,7 +105,7 @@ function App() {
                 
                 <div className='icon'>
                 <MdDeleteSweep className='delete-icon' onClick={()=>handleDeleteObjective(index)} title='Delete?' />
-                <IoCheckmarkDoneSharp className='check-icon' title='Complete?'/>
+                <IoCheckmarkDoneSharp className='check-icon' onClick={()=>handleCompleted(index)} title='Complete?'/>
                 </div>
                 
               </div> 
