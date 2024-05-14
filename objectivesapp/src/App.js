@@ -49,12 +49,23 @@ function App() {
     updatedCompletedArr.push(filteredItem);
     setCompletedObjectives(updatedCompletedArr);
     handleDeleteObjective(index);
-    localStorage.setItem('completedobjectives', JSON.stringify(updatedCompletedArr));
+    localStorage.setItem('completedObjectives', JSON.stringify(updatedCompletedArr));
+  };
+
+  const handleDeleteCompletedObjectives = (index)=> {
+    let reducedCompletedObjective = [...completedObjectives];
+    reducedCompletedObjective.splice(index, 1);
+
+    localStorage.setItem('completedObjectives', JSON.stringify(reducedCompletedObjective));
+    setCompletedObjectives(reducedCompletedObjective);
   }
 
   useEffect(() => {
     let savedObjective = JSON.parse(localStorage.getItem('objectiveslist'));
-    let savedCompletedObjective = JSON.parse(localStorage.getItem('completedobjectives'));
+    let savedCompletedObjective = JSON.parse(
+      localStorage.getItem('completedObjectives'));
+    
+    
     if (savedObjective) {
       setObjectives(savedObjective);
     }
@@ -130,7 +141,10 @@ function App() {
                 </div>
 
                 <div className='icon'>
-                  <MdDeleteSweep className='delete-icon' onClick={() => handleDeleteObjective(index)} title='Delete?' />
+                  <MdDeleteSweep 
+                  className='delete-icon' 
+                  onClick={() => handleDeleteCompletedObjectives(index)} 
+                  title='Delete?' />
                 </div>
 
               </div>
