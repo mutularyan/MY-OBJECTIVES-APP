@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { MdDeleteSweep } from "react-icons/md";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
+import {AiOutlineEdit} from "react-icons/ai";
 
 function App() {
   const [isCompleteScreen, setIsCompleteScreen] = useState(false);
@@ -78,7 +79,28 @@ function App() {
   }, []);
 
   const handleEdit = (ind,item)=>{
-    console.log(ind)
+    console.log(ind);
+    setCurrentEdit(ind);
+    setCurrentEditedItem(item);
+  }
+
+  const handleUpdateObjectives = (value)=>{
+    setCurrentEditedItem((prev)=>{
+      return {...prev,objective:value}
+    })
+  }
+
+  const handleUpdateDescription = (value)=>{
+    setCurrentEditedItem((prev)=>{
+      return {...prev,description:value}
+    })
+  }
+
+  const handleUpdateObjective = ()=>{
+      let newObjective = [...allObjectives];
+      newObjective[currentEdit] = currentEditedItem;
+      setObjectives(newObjective);
+      setCurrentEdit("");
   }
 
   return (
@@ -118,11 +140,28 @@ function App() {
         </div>
         <div className='objectives-list'>
 
-          {isCompleteScreen === false && allObjectives.map((item, index) => {
-            if (currentEdit===index){
-
-            }
-            
+        {isCompleteScreen === false &&
+            allObjectives.map ((item, index) => {
+              if(currentEdit===index){
+                 return(
+                  <div className='edit__wrapper' key={index}>
+                  <input placeholder='Updated Objective' 
+                  onChange={(e)=>handleUpdateObjectives(e.target.value)} 
+                  value={currentEditedItem.objective}  />
+                  <textarea placeholder='Updated Objective' 
+                  rows={4}
+                  onChange={(e)=>handleUpdateDescription(e.target.value)} 
+                  value={currentEditedItem.description}  />
+                   <button
+              type="button"
+              onClick={handleUpdateObjective}
+              className="primaryBtn"
+            >
+              Update
+            </button>
+              </div> 
+                 ) 
+              }else{
             return (
               <div className='objectives-list-item' key={index}>
 
@@ -132,12 +171,20 @@ function App() {
                 </div>
 
                 <div className='icon'>
-                  <MdDeleteSweep className='delete-icon' onClick={() => handleDeleteObjective(index)} title='Delete?' />
-                  <IoCheckmarkDoneSharp className='check-icon' onClick={() => handleCompleted(index)} title='Complete?' />
+                  <MdDeleteSweep className='delete-icon' 
+                  onClick={() => handleDeleteObjective(index)} 
+                  title='Delete?' />
+                  <IoCheckmarkDoneSharp className='check-icon' 
+                  onClick={() => handleCompleted(index)} 
+                  title='Complete?' />
+                  <AiOutlineEdit  className="check-icon"
+                  onClick={() => handleEdit (index,item)}
+                  title="Edit?" />
                 </div>
 
               </div>
-            )
+            );
+          }
           })}
 
           {isCompleteScreen === true && completedObjectives.map((item, index) => {
